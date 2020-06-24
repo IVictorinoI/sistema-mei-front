@@ -8,7 +8,7 @@ export default props => (
             <span className='logo-mini'><b>G</b>C</span>
             <span className='logo-lg'>
                 <i className='fa fa-money'></i>
-                <font style={({ marginLeft: '0.8rem' })}>Votação gladius</font>
+                <font style={({ marginLeft: '0.8rem' })}>MEI Software</font>
             </span>        
         </a>
         <nav className='navbar navbar-static-top'>
