@@ -3,20 +3,20 @@ import { toastr } from 'react-redux-toastr'
 import { initialize } from 'redux-form'
 import { showTabs, selectTab } from '../common/tab/tabActions'
 
-const INITIAL_VALUES = {}
+const INITIAL_VALUES = {titulos: [{}]}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/recebers?populate=pessoa`)
+    const request = axios.get(`${window.Params.URL_API}/baixaRecebers?populate=titulos.receber`)
     return {
-        type: 'RECEBERS_FETCHED',
+        type: 'BAIXARECEBERS_FETCHED',
         payload: request
     }
 }
 
-export function getPessoas() {
-    const request = axios.get(`${window.Params.URL_API}/pessoas`)
+export function getRecebers() {
+    const request = axios.get(`${window.Params.URL_API}/recebers`)
     return {
-        type: 'PESSOAS_FETCHED',
+        type: 'RECEBERS_FETCHED',
         payload: request
     }
 }
@@ -36,11 +36,16 @@ export function remove(values) {
 function submit(values, method) {
     return dispatch => {
         const id = values._id ? values._id : ''
-        
+
         const newValues = Object.assign({}, values, {
-            pessoa: values.pessoa._id
+            titulos: values.titulos.filter(p => p.receber).map(p => {
+                return Object.assign({}, p, {
+                    receber: p.receber._id
+                })
+            })
         })
-        axios[method](`${window.Params.URL_API}/recebers/${id}`, newValues)
+
+        axios[method](`${window.Params.URL_API}/baixaRecebers/${id}`, newValues)
             .then(resp => {
                 toastr.success('Sucesso', 'Operação Realizada com sucesso.')
                 dispatch(init())
@@ -51,19 +56,19 @@ function submit(values, method) {
     }
 }
 
-export function showUpdate(receber) {
+export function showUpdate(baixaReceber) {
     return [ 
         showTabs('tabUpdate'),
         selectTab('tabUpdate'),
-        initialize('receberForm', receber)
+        initialize('baixaReceberForm', baixaReceber)
     ]
 }
 
-export function showDelete(receber) {
+export function showDelete(baixaReceber) {
     return [ 
         showTabs('tabDelete'),
         selectTab('tabDelete'),
-        initialize('receberForm', receber)
+        initialize('baixaReceberForm', baixaReceber)
     ]
 }
 
@@ -72,7 +77,7 @@ export function init() {
         showTabs('tabList', 'tabCreate'),
         selectTab('tabList'),
         getList(),
-        initialize('receberForm', INITIAL_VALUES)
+        initialize('baixaReceberForm', INITIAL_VALUES)
     ]
 }
 

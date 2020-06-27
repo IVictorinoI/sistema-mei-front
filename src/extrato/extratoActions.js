@@ -6,9 +6,9 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/recebers?populate=pessoa`)
+    const request = axios.get(`${window.Params.URL_API}/extratos?populate=pessoa&populate=conta&populate=categoriaFinanceira`)
     return {
-        type: 'RECEBERS_FETCHED',
+        type: 'EXTRATOS_FETCHED',
         payload: request
     }
 }
@@ -17,6 +17,22 @@ export function getPessoas() {
     const request = axios.get(`${window.Params.URL_API}/pessoas`)
     return {
         type: 'PESSOAS_FETCHED',
+        payload: request
+    }
+}
+
+export function getContas() {
+    const request = axios.get(`${window.Params.URL_API}/contas`)
+    return {
+        type: 'CONTAS_FETCHED',
+        payload: request
+    }
+}
+
+export function getCategoriaFinanceiras() {
+    const request = axios.get(`${window.Params.URL_API}/categoriaFinanceiras`)
+    return {
+        type: 'CATEGORIAFINANCEIRAS_FETCHED',
         payload: request
     }
 }
@@ -36,11 +52,12 @@ export function remove(values) {
 function submit(values, method) {
     return dispatch => {
         const id = values._id ? values._id : ''
-        
         const newValues = Object.assign({}, values, {
-            pessoa: values.pessoa._id
+            pessoa: values.pessoa._id,
+            conta: values.conta._id,
+            categoriaFinanceira: values.categoriaFinanceira._id
         })
-        axios[method](`${window.Params.URL_API}/recebers/${id}`, newValues)
+        axios[method](`${window.Params.URL_API}/extratos/${id}`, newValues)
             .then(resp => {
                 toastr.success('Sucesso', 'Operação Realizada com sucesso.')
                 dispatch(init())
@@ -51,19 +68,19 @@ function submit(values, method) {
     }
 }
 
-export function showUpdate(receber) {
+export function showUpdate(extrato) {
     return [ 
         showTabs('tabUpdate'),
         selectTab('tabUpdate'),
-        initialize('receberForm', receber)
+        initialize('extratoForm', extrato)
     ]
 }
 
-export function showDelete(receber) {
+export function showDelete(extrato) {
     return [ 
         showTabs('tabDelete'),
         selectTab('tabDelete'),
-        initialize('receberForm', receber)
+        initialize('extratoForm', extrato)
     ]
 }
 
@@ -72,7 +89,7 @@ export function init() {
         showTabs('tabList', 'tabCreate'),
         selectTab('tabList'),
         getList(),
-        initialize('receberForm', INITIAL_VALUES)
+        initialize('extratoForm', INITIAL_VALUES)
     ]
 }
 

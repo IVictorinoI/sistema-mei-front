@@ -11,6 +11,11 @@ import PessoaReducer from '../pessoa/pessoaReducer'
 import ContaReducer from '../conta/contaReducer'
 import CategoriaFinanceiraReducer from '../categoriaFinanceira/categoriaFinanceiraReducer'
 import ReceberReducer from '../receber/receberReducer'
+import BaixaReceberReducer from '../baixaReceber/baixaReceberReducer'
+import PagarReducer from '../pagar/pagarReducer'
+import BaixaPagarReducer from '../baixaPagar/baixaPagarReducer'
+import ExtratoReducer from '../extrato/extratoReducer'
+import VendaReducer from '../venda/vendaReducer'
 
 
 
@@ -23,9 +28,15 @@ const rootReducer = combineReducers({
 
     item: ItemReducer,
     pessoa: PessoaReducer,
-    receber: ReceberReducer,
     conta: ContaReducer,
-    categoriaFinanceira: CategoriaFinanceiraReducer
+    categoriaFinanceira: CategoriaFinanceiraReducer,
+
+    receber: ReceberReducer,
+    baixaReceber: BaixaReceberReducer,
+    pagar: PagarReducer,
+    baixaPagar: BaixaPagarReducer,
+    extrato: ExtratoReducer,
+    venda: VendaReducer
 })
 
 export default rootReducer

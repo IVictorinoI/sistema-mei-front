@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import axios from 'axios'
 
-import { init, getPessoas } from './receberActions'
+import { init, getPessoas } from './pagarActions'
 import LabelAndInput from '../common/form/labelAndInput'
 import LabelAndFormSelect from '../common/form/labelAndFormSelect'
 
-class ReceberForm extends Component {
+class PagarForm extends Component {
     componentDidMount() {
         this.props.getPessoas();
     }
@@ -49,7 +49,7 @@ class ReceberForm extends Component {
     }
 }
 
-ReceberForm = reduxForm({form: 'receberForm', destroyOnUnmount: false})(ReceberForm)
-const mapStateToProps = state => ({pessoas: state.receber.pessoas})
+PagarForm = reduxForm({form: 'pagarForm', destroyOnUnmount: false})(PagarForm)
+const mapStateToProps = state => ({pessoas: state.pagar.pessoas})
 const mapDispatchToProps = dispatch => bindActionCreators({init, getPessoas}, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(ReceberForm)
+export default connect(mapStateToProps, mapDispatchToProps)(PagarForm)

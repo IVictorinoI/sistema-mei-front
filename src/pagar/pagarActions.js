@@ -6,9 +6,9 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/recebers?populate=pessoa`)
+    const request = axios.get(`${window.Params.URL_API}/pagars?populate=pessoa`)
     return {
-        type: 'RECEBERS_FETCHED',
+        type: 'PAGARS_FETCHED',
         payload: request
     }
 }
@@ -36,11 +36,10 @@ export function remove(values) {
 function submit(values, method) {
     return dispatch => {
         const id = values._id ? values._id : ''
-        
         const newValues = Object.assign({}, values, {
             pessoa: values.pessoa._id
         })
-        axios[method](`${window.Params.URL_API}/recebers/${id}`, newValues)
+        axios[method](`${window.Params.URL_API}/pagars/${id}`, newValues)
             .then(resp => {
                 toastr.success('Sucesso', 'Operação Realizada com sucesso.')
                 dispatch(init())
@@ -51,19 +50,19 @@ function submit(values, method) {
     }
 }
 
-export function showUpdate(receber) {
+export function showUpdate(pagar) {
     return [ 
         showTabs('tabUpdate'),
         selectTab('tabUpdate'),
-        initialize('receberForm', receber)
+        initialize('pagarForm', pagar)
     ]
 }
 
-export function showDelete(receber) {
+export function showDelete(pagar) {
     return [ 
         showTabs('tabDelete'),
         selectTab('tabDelete'),
-        initialize('receberForm', receber)
+        initialize('pagarForm', pagar)
     ]
 }
 
@@ -72,7 +71,7 @@ export function init() {
         showTabs('tabList', 'tabCreate'),
         selectTab('tabList'),
         getList(),
-        initialize('receberForm', INITIAL_VALUES)
+        initialize('pagarForm', INITIAL_VALUES)
     ]
 }
 

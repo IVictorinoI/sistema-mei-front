@@ -2,10 +2,10 @@ const INITIAL_STATE = {list: []}
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'RECEBERS_FETCHED':
+        case 'BAIXAPAGARS_FETCHED':
             return { ...state, list: action.payload.data }
-        case 'PESSOAS_FETCHED':
-            return { ...state, pessoas: action.payload.data }
+        case 'PAGARS_FETCHED':
+            return { ...state, pagars: action.payload.data }
         default:
             return state
     }

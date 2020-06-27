@@ -12,5 +12,10 @@ export default props => (
             <MenuItem path='categoriaFinanceiras' label='Categorias' icon='usd' />
         </MenuTree>
         <MenuItem path='recebers' label='Contas a receber' icon='usd' />
+        <MenuItem path='baixaRecebers' label='Recebimentos efetuados' icon='usd' />
+        <MenuItem path='pagars' label='Contas a pagar' icon='usd' />
+        <MenuItem path='baixaPagars' label='Pagamentos efetuados' icon='usd' />
+        <MenuItem path='extratos' label='Extrato' icon='usd' />
+        <MenuItem path='vendas' label='Venda' icon='usd' />
     </ul>
 )

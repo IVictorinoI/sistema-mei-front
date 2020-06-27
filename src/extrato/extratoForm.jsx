@@ -4,17 +4,19 @@ import { bindActionCreators } from 'redux'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import axios from 'axios'
 
-import { init, getPessoas } from './receberActions'
+import { init, getPessoas, getContas, getCategoriaFinanceiras } from './extratoActions'
 import LabelAndInput from '../common/form/labelAndInput'
 import LabelAndFormSelect from '../common/form/labelAndFormSelect'
 
-class ReceberForm extends Component {
+class ExtratoForm extends Component {
     componentDidMount() {
         this.props.getPessoas();
+        this.props.getContas();
+        this.props.getCategoriaFinanceiras();
     }
 
     render() {
-        const { handleSubmit, readOnly, pessoas } = this.props
+        const { handleSubmit, readOnly, pessoas, contas, categoriaFinanceiras } = this.props
         return (
             <form onSubmit={handleSubmit}>
                 <div className='box-body'>
@@ -22,16 +24,20 @@ class ReceberForm extends Component {
                         label='Pessoa' cols='12 4' placeholder='Informe a Pessoa' options={pessoas} />
                 </div>
                 <div className='box-body'>
-                    <Field name='numero' component={LabelAndInput} readOnly={readOnly}
-                        label='Número' cols='12 4' placeholder='Informe o Número' />
+                    <Field name="conta" component={LabelAndFormSelect} displayProperty='descricao' readOnly={readOnly}
+                        label='Conta' cols='12 4' placeholder='Informe a Conta' options={contas} />
+                </div>
+                <div className='box-body'>
+                    <Field name="categoriaFinanceira" component={LabelAndFormSelect} displayProperty='descricao' readOnly={readOnly}
+                        label='Categoria' cols='12 4' placeholder='Informe a Categoria' options={categoriaFinanceiras} />
+                </div>
+                <div className='box-body'>
                     <Field name='descricao' component={LabelAndInput} readOnly={readOnly}
                         label='Descrição' cols='12 4' placeholder='Informe a descrição' />
                 </div>
                 <div className='box-body'>
-                    <Field name='dataEmissao' component={LabelAndInput} readOnly={readOnly}
-                        label='Emissão' cols='12 4' type='date' />
-                    <Field name='dataVencimento' component={LabelAndInput} readOnly={readOnly}
-                        label='Vencimento' cols='12 4' type='date' />
+                    <Field name='data' component={LabelAndInput} readOnly={readOnly}
+                        label='Data' cols='12 4' type='date' />
                 </div>
                 <div className='box-body'>
                     <Field name='valor' component={LabelAndInput} type='number' readOnly={readOnly}
@@ -49,7 +55,7 @@ class ReceberForm extends Component {
     }
 }
 
-ReceberForm = reduxForm({form: 'receberForm', destroyOnUnmount: false})(ReceberForm)
-const mapStateToProps = state => ({pessoas: state.receber.pessoas})
-const mapDispatchToProps = dispatch => bindActionCreators({init, getPessoas}, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(ReceberForm)
+ExtratoForm = reduxForm({form: 'extratoForm', destroyOnUnmount: false})(ExtratoForm)
+const mapStateToProps = state => ({pessoas: state.extrato.pessoas, contas: state.extrato.contas, categoriaFinanceiras: state.extrato.categoriaFinanceiras})
+const mapDispatchToProps = dispatch => bindActionCreators({init, getPessoas, getContas, getCategoriaFinanceiras}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(ExtratoForm)
