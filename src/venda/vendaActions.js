@@ -3,10 +3,10 @@ import { toastr } from 'react-redux-toastr'
 import { initialize } from 'redux-form'
 import { showTabs, selectTab } from '../common/tab/tabActions'
 
-const INITIAL_VALUES = {itens: [{}]}
+const INITIAL_VALUES = {itens: [{}], parcelas: [{}]}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/vendas?populate=pessoa&populate=conta&populate=itens.item`)
+    const request = axios.get(`${window.Params.URL_API}/vendas?populate=pessoa&populate=conta&populate=itens.item&sort=-_id`)
     return {
         type: 'VENDAS_FETCHED',
         payload: request

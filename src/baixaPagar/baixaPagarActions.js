@@ -6,7 +6,7 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 const INITIAL_VALUES = {titulos: [{}]}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/baixaPagars?populate=titulos.pagar`)
+    const request = axios.get(`${window.Params.URL_API}/baixaPagars?populate=titulos.pagar&sort=-_id`)
     return {
         type: 'BAIXAPAGARS_FETCHED',
         payload: request
@@ -14,9 +14,25 @@ export function getList() {
 }
 
 export function getPagars() {
-    const request = axios.get(`${window.Params.URL_API}/pagars`)
+    const request = axios.get(`${window.Params.URL_API}/pagars?status__ne=PAGO`)
     return {
         type: 'PAGARS_FETCHED',
+        payload: request
+    }
+}
+
+export function getContas() {
+    const request = axios.get(`${window.Params.URL_API}/contas`)
+    return {
+        type: 'CONTAS_FETCHED',
+        payload: request
+    }
+}
+
+export function getCategoriaFinanceiras() {
+    const request = axios.get(`${window.Params.URL_API}/categoriaFinanceiras`)
+    return {
+        type: 'CATEGORIAFINANCEIRAS_FETCHED',
         payload: request
     }
 }
@@ -38,6 +54,8 @@ function submit(values, method) {
         const id = values._id ? values._id : ''
 
         const newValues = Object.assign({}, values, {
+            conta: values.conta._id,
+            categoriaFinanceira: values.categoriaFinanceira._id,
             titulos: values.titulos.filter(p => p.pagar).map(p => {
                 return Object.assign({}, p, {
                     pagar: p.pagar._id

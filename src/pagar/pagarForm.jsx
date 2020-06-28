@@ -22,8 +22,6 @@ class PagarForm extends Component {
                         label='Pessoa' cols='12 4' placeholder='Informe a Pessoa' options={pessoas} />
                 </div>
                 <div className='box-body'>
-                    <Field name='numero' component={LabelAndInput} readOnly={readOnly}
-                        label='Número' cols='12 4' placeholder='Informe o Número' />
                     <Field name='descricao' component={LabelAndInput} readOnly={readOnly}
                         label='Descrição' cols='12 4' placeholder='Informe a descrição' />
                 </div>

@@ -6,7 +6,7 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/recebers?populate=pessoa`)
+    const request = axios.get(`${window.Params.URL_API}/recebers?populate=pessoa&sort=-_id`)
     return {
         type: 'RECEBERS_FETCHED',
         payload: request

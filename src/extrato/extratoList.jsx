@@ -16,6 +16,7 @@ class ExtratoList extends Component {
                 <td>{bc.descricao}</td>
                 <td>{bc.pessoa.nome}</td>
                 <td>{bc.data}</td>
+                <td>{bc.tipo}</td>
                 <td>{bc.valor}</td>
                 <td>
                     <button className='btn btn-warning' onClick={() => this.props.showUpdate(bc)}>
@@ -38,6 +39,7 @@ class ExtratoList extends Component {
                             <th>Descrição</th>
                             <th>Pessoa</th>
                             <th>Data</th>
+                            <th>Tipo</th>
                             <th>Valor</th>
                             <th className='table-actions'>Ações</th>
                         </tr>

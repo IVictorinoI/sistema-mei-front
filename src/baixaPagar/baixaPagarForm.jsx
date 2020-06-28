@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { reduxForm, Field, formValueSelector } from 'redux-form'
 import axios from 'axios'
 
-import { init, getPagars } from './baixaPagarActions'
+import { init, getPagars, getContas, getCategoriaFinanceiras } from './baixaPagarActions'
 import LabelAndInput from '../common/form/labelAndInput'
 import LabelAndFormSelect from '../common/form/labelAndFormSelect'
 import ItemList from './itemList'
@@ -12,15 +12,21 @@ import ItemList from './itemList'
 class VendaForm extends Component {
     componentDidMount() {
         this.props.getPagars();
+        this.props.getContas();
+        this.props.getCategoriaFinanceiras();
     }
 
     render() {
-        const { handleSubmit, readOnly, titulos, pagars } = this.props
+        const { handleSubmit, readOnly, titulos, pagars, contas, categoriaFinanceiras } = this.props
         return (
             <form onSubmit={handleSubmit}>
                 <div className='box-body'>
-                    <Field name='valor' component={LabelAndInput} type='number' readOnly={readOnly}
-                        label='Valor' cols='12 4' placeholder='Informe o valor' />
+                    <Field name="conta" component={LabelAndFormSelect} displayProperty='descricao' readOnly={readOnly}
+                        label='Conta' cols='12 4' placeholder='Informe a Conta' options={contas} />
+                </div>
+                <div className='box-body'>
+                    <Field name="categoriaFinanceira" component={LabelAndFormSelect} displayProperty='descricao' readOnly={readOnly}
+                        label='Categoria' cols='12 4' placeholder='Informe a Categoria' options={categoriaFinanceiras} />
                 </div>
                 <div className='box-body'>
                     <ItemList cols='12' list={titulos} pagars={pagars} readOnly={readOnly}
@@ -42,7 +48,9 @@ VendaForm = reduxForm({form: 'baixaPagarForm', destroyOnUnmount: false})(VendaFo
 const selector = formValueSelector('baixaPagarForm')
 const mapStateToProps = state => ({
     pagars: state.baixaPagar.pagars, 
+    contas: state.extrato.contas, 
+    categoriaFinanceiras: state.extrato.categoriaFinanceiras, 
     titulos: selector(state, 'titulos')
 })
-const mapDispatchToProps = dispatch => bindActionCreators({init, getPagars}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({init, getPagars, getContas, getCategoriaFinanceiras}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(VendaForm)

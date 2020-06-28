@@ -56,6 +56,10 @@ class ExtratoForm extends Component {
 }
 
 ExtratoForm = reduxForm({form: 'extratoForm', destroyOnUnmount: false})(ExtratoForm)
-const mapStateToProps = state => ({pessoas: state.extrato.pessoas, contas: state.extrato.contas, categoriaFinanceiras: state.extrato.categoriaFinanceiras})
+const mapStateToProps = state => ({
+    pessoas: state.extrato.pessoas, 
+    contas: state.extrato.contas, 
+    categoriaFinanceiras: state.extrato.categoriaFinanceiras
+})
 const mapDispatchToProps = dispatch => bindActionCreators({init, getPessoas, getContas, getCategoriaFinanceiras}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(ExtratoForm)

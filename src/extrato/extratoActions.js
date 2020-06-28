@@ -6,7 +6,7 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 const INITIAL_VALUES = {}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/extratos?populate=pessoa&populate=conta&populate=categoriaFinanceira`)
+    const request = axios.get(`${window.Params.URL_API}/extratos?populate=pessoa&populate=conta&populate=categoriaFinanceira&sort=-_id`)
     return {
         type: 'EXTRATOS_FETCHED',
         payload: request

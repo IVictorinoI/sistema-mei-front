@@ -6,7 +6,7 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 const INITIAL_VALUES = {credits: [{}], debts: [{}]}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/itens`)
+    const request = axios.get(`${window.Params.URL_API}/itens?sort=-_id`)
     return {
         type: 'ITENS_FETCHED',
         payload: request

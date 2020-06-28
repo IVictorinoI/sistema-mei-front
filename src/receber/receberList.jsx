@@ -13,7 +13,6 @@ class ReceberList extends Component {
         const list = this.props.list || []
         return list.map(bc => (
             <tr key={bc._id}>
-                <td>{bc.numero}</td>
                 <td>{bc.descricao}</td>
                 <td>{bc.pessoa.nome}</td>
                 <td>{bc.dataEmissao}</td>
@@ -39,7 +38,6 @@ class ReceberList extends Component {
                 <table className='table'>
                     <thead>
                         <tr>
-                            <th>Número</th>
                             <th>Descrição</th>
                             <th>Pessoa</th>
                             <th>Emissão</th>

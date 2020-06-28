@@ -6,7 +6,7 @@ import { showTabs, selectTab } from '../common/tab/tabActions'
 const INITIAL_VALUES = {titulos: [{}]}
 
 export function getList() {
-    const request = axios.get(`${window.Params.URL_API}/baixaRecebers?populate=titulos.receber`)
+    const request = axios.get(`${window.Params.URL_API}/baixaRecebers?populate=conta&populate=categoriaFinanceira&populate=titulos.receber&sort=-_id`)
     return {
         type: 'BAIXARECEBERS_FETCHED',
         payload: request
@@ -14,9 +14,25 @@ export function getList() {
 }
 
 export function getRecebers() {
-    const request = axios.get(`${window.Params.URL_API}/recebers`)
+    const request = axios.get(`${window.Params.URL_API}/recebers?status__ne=PAGO`)
     return {
         type: 'RECEBERS_FETCHED',
+        payload: request
+    }
+}
+
+export function getContas() {
+    const request = axios.get(`${window.Params.URL_API}/contas`)
+    return {
+        type: 'CONTAS_FETCHED',
+        payload: request
+    }
+}
+
+export function getCategoriaFinanceiras() {
+    const request = axios.get(`${window.Params.URL_API}/categoriaFinanceiras`)
+    return {
+        type: 'CATEGORIAFINANCEIRAS_FETCHED',
         payload: request
     }
 }
@@ -38,6 +54,8 @@ function submit(values, method) {
         const id = values._id ? values._id : ''
 
         const newValues = Object.assign({}, values, {
+            conta: values.conta._id,
+            categoriaFinanceira: values.categoriaFinanceira._id,
             titulos: values.titulos.filter(p => p.receber).map(p => {
                 return Object.assign({}, p, {
                     receber: p.receber._id
