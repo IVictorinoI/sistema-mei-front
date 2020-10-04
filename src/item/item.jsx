@@ -23,7 +23,7 @@ class Item extends Component {
     render() {
         return (
             <div> 
-                <ContentHeader title='Itens' small='Cadastro' />
+                <ContentHeader title='Itens .. SS' small='Cadastro' />
                 <Content> 
                     <Tabs> 
                         <TabsHeader> 
